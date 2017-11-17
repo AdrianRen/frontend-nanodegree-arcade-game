@@ -22,7 +22,7 @@ class Player {
     /*
      *  1 ---- updateMethod
      *
-     *  Updating the enemy location
+     *  Updating the player location
      *
      *  Handling collision with the player
      */
