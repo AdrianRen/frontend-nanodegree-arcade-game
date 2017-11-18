@@ -18,7 +18,7 @@ class Enemy {
     // Variables applied to each of our instances go here,
     this.x = 0;
     this.y;
-    this.speed;
+    this.speed = .5;
     this.sprite = 'images/enemy-bug.png';
   }
 
@@ -68,6 +68,7 @@ class Player {
     }
     // Reset game when reach to water
     if(this.y < 70){
+      setTimeout(() => {alert(`You made it!`);},200 )
       this.reset();
     }
   }
