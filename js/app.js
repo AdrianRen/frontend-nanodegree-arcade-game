@@ -6,10 +6,8 @@ let allEnemies = [];
 
 // Enemies our player must avoid
 class Enemy {
-  constructor(x,y) {
+  constructor() {
     // Variables applied to each of our instances go here,
-	  this.x = x;
-	  this.y = y;
     this.sprite = 'images/enemy-bug.png';
   }
 
@@ -31,29 +29,6 @@ class Enemy {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-class Player {
-  constructor(x,y) {
-	  this.x = x;
-	  this.y = y;
-    this.sprite = 'images/char-boy.png';
-  }
-
-  update(dt) {
-
-  }
-
-  render() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-  }
-
-  handleInput(keyCode) {
-		console.log(keyCode);
-  }
-}
-
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
 
 /*
  * Player Move left & right, 100px each; x =0, 100, 200, 300, 400
@@ -63,7 +38,80 @@ class Player {
  *      initial position x = 200, y = 390
  */
 
-let player = new Player(200,390);
+class Player {
+  // Player initial position
+  // ES6: Default Parameters
+  constructor(x=200,y=390) {
+	  this.x = x;
+	  this.y = y;
+    this.sprite = 'images/char-boy.png';
+  }
+
+  update() {
+    // Handling collision with the player
+    for (var i = 0; i < allEnemies.length; i++) {
+      if (Math.abs(allEnemies[i].x - this.x) < 50 && Math.abs(allEnemies[i].y - this.y) < 50) {
+        this.reset();
+      }
+    }
+    // Reset game when reach to water
+    if(this.y < 70){
+      this.reset();
+    }
+  }
+  // Code from the render method for Enemy
+  render() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+  }
+
+  // A method to allow user to control character
+  handleInput(keyCode) {
+    console.log(keyCode);
+
+    switch (keyCode) {
+      case 'up':
+      // Move up, and do not cross the top border
+        if (this.y > -10) {
+          this.y -= 80;
+        }
+        break;
+
+      case 'down':
+      // Move down, and do not cross the bottom border
+        if (this.y < 390) {
+          this.y += 80;
+        }
+        break;
+
+      case 'right':
+      // Move right, and do not cross the right border
+        if (this.x < 400) {
+          this.x += 505 / 5;
+        }
+        break;
+
+      case 'left':
+      // Move left, and do not cross the left border
+        if (this.x > 0) {
+          this.x -= 505 / 5;
+        }
+        break;
+    }
+  }
+
+  // reset character to initial position
+  reset() {
+    this.x = 200;
+    this.y = 390;
+  }
+}
+
+// Now instantiate your objects.
+// Place all enemy objects in an array called allEnemies
+// Place the player object in a variable called player
+
+
+let player = new Player();
 
 /*
  * Bugs move left & right, 100px each;
