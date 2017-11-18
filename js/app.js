@@ -5,9 +5,20 @@
 let allEnemies = [];
 
 // Enemies our player must avoid
+/*
+ * Bugs move left & right, 100px each;
+ *
+ *      initial position,   x=0, y=65
+ *                          x=0, y=145
+ *                          x=0, y=230
+ */
+
 class Enemy {
   constructor() {
     // Variables applied to each of our instances go here,
+    this.x = 0;
+    this.y;
+    this.speed;
     this.sprite = 'images/enemy-bug.png';
   }
 
@@ -17,6 +28,7 @@ class Enemy {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    this.x = (this.x % 505 ) + this.speed * dt;
   }
 
   // Draw the enemy on the screen, required method for game
@@ -110,20 +122,17 @@ class Player {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-
+// Instantiate Player
 let player = new Player();
 
-/*
- * Bugs move left & right, 100px each;
- *
- *      initial position,   x=0, y=65
- *                          x=0, y=145
- *                          x=0, y=230
- */
+// Instantiate ememies
+for (var i = 0; i < 3; i++) {
+  allEnemies[i] = new Enemy();
+  allEnemies[i].y = i * 85 + 62; // pop up on three stone road
+  allEnemies[i].speed = Math.random() * 200 + 100;
+}
 
-allEnemies.push(new Enemy(0, 65));
-allEnemies.push(new Enemy(0, 145));
-allEnemies.push(new Enemy(0, 230));
+
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
