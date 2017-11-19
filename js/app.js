@@ -61,7 +61,7 @@ class Player {
 
   update() {
     // Handling collision with the player
-    for (var i = 0; i < allEnemies.length; i++) {
+    for (var i = 0, len = allEnemies.length; i < len; i++) {
       if (Math.abs(allEnemies[i].x - this.x) < 50 && Math.abs(allEnemies[i].y - this.y) < 50) {
         this.reset();
       }
@@ -99,14 +99,14 @@ class Player {
       case 'right':
       // Move right, and do not cross the right border
         if (this.x < 400) {
-          this.x += 505 / 5;
+          this.x += 101;
         }
         break;
 
       case 'left':
       // Move left, and do not cross the left border
         if (this.x > 0) {
-          this.x -= 505 / 5;
+          this.x -= 101;
         }
         break;
     }
